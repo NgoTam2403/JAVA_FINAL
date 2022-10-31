@@ -1,0 +1,20 @@
+package GLuong;
+
+import java.sql.Connection;
+import java.sql.SQLException;
+
+public class GUI_updateNV {
+
+	int MaNV;
+	String HoTen;
+	String DiaChi;
+	double Luong;
+//	static NhanVien nv= new NhanVien(MaNV,HoTen,DiaChi,Luong);
+	Connection conn=null;
+	static XLLuong xl= new XLLuong();
+	public static void main(String[] args) throws SQLException {
+		// TODO Auto-generated method stub
+		xl.getCon();
+	}
+
+}

@@ -1,0 +1,32 @@
+package GKH;
+
+import java.beans.Statement;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
+
+public class XLKH implements IKhachhang{
+	
+	Connection conn=null;
+	@Override
+	public void getCon() throws SQLException {
+		// TODO Auto-generated method stub
+		  conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/dlkh", "root", "24032002");
+		  if(conn!=null) {
+			  System.out.println("ket noi ok");
+		  }
+		
+	}
+
+	@Override
+	public int delKH(String DiaChi, String GioiTinh) throws SQLException {
+		String query="delete from table tbKhachhang where DiaChi ='"+DiaChi +"' and GT='"+GioiTinh+"'";
+		PreparedStatement stm =conn.prepareStatement(query);
+		int rowaffect = stm.executeUpdate(query);
+		// TODO Auto-generated method stub
+		return rowaffect;
+	}
+	
+	
+}

@@ -1,0 +1,10 @@
+package QLCB;
+
+public class Test_insertCB {
+
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+
+	}
+
+}

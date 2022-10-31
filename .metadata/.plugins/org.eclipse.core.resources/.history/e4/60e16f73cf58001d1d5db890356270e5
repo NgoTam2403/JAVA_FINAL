@@ -1,0 +1,11 @@
+package GLuong;
+
+public class GUI_updateNV {
+
+	
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+		
+	}
+
+}

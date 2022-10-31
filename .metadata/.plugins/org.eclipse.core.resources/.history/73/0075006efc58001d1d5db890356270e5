@@ -1,0 +1,10 @@
+/**
+ * 
+ */
+/**
+ * @author Admin
+ *
+ */
+module DALuong {
+	requires java.sql;
+}

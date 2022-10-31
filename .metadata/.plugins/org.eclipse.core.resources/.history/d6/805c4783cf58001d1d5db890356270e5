@@ -1,0 +1,14 @@
+package GLuong;
+
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.SQLException;
+
+public class XLLuong {
+
+	Connection conn=null;
+	public void getCon() throws SQLException {
+		conn= DriverManager.getConnection("jdbc:mysql::/localhost:3306/dlluong","root", "24032002");
+		System.out.println("ok");
+	}
+}

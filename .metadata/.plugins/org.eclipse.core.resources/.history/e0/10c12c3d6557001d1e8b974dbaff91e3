@@ -1,0 +1,118 @@
+package test;
+
+import java.awt.BorderLayout;
+import java.awt.EventQueue;
+
+import javax.swing.JFrame;
+import javax.swing.JPanel;
+import javax.swing.border.EmptyBorder;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.SQLException;
+import java.awt.GridLayout;
+import javax.swing.JLabel;
+import javax.swing.JTable;
+import javax.swing.table.DefaultTableModel;
+
+public class test extends JFrame {
+
+	private JPanel contentPane;
+	private JTable table;
+
+	/**
+	 * Launch the application.
+	 */
+	public static void main(String[] args) {
+		Connection conn = null;
+        try {
+            // db parameters
+            String url       = "jdbc:mysql://localhost:3306/music";
+            String user      = "root";
+            String password  = "24032002";
+
+            // create a connection to the database
+            conn = DriverManager.getConnection(url, user, password);
+            // more processing here
+            // ...
+        } catch(SQLException e) {
+            System.out.println(e.getMessage());
+        } finally {
+            try{
+                if(conn != null)
+                {
+                    System.out.println("connect");
+                    conn.close();
+                }
+
+            }catch(SQLException ex)
+            {
+                System.out.println(ex.getMessage());
+            }
+        }
+		EventQueue.invokeLater(new Runnable() {
+			public void run() {
+				try {
+					test frame = new test();
+					frame.setVisible(true);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+		});
+	}
+
+	/**
+	 * Create the frame.
+	 */
+	public test() {
+		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setBounds(100, 100, 517, 300);//s2 tham số đầu là vị trí
+		contentPane = new JPanel();
+		contentPane.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				
+			}
+		});
+		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
+
+		setContentPane(contentPane);
+		contentPane.setLayout(new GridLayout(2, 1, 0, 0));
+		
+		JPanel panel_1 = new JPanel();
+		contentPane.add(panel_1);
+		panel_1.setLayout(new GridLayout(0, 2, 0, 0));
+		
+		JPanel panel_2 = new JPanel();
+		panel_1.add(panel_2);
+		
+		JPanel panel_3 = new JPanel();
+		panel_1.add(panel_3);
+		
+		JPanel panel = new JPanel();
+		contentPane.add(panel);
+		panel.setLayout(null);
+		
+		table = new JTable();
+		table.setFillsViewportHeight(true);
+		table.setBounds(10, 5, 424, 111);
+		table.setModel(new DefaultTableModel(
+			new Object[][] {
+			},
+			new String[] {
+				"M\u00E3 s\u00E1ch", "T\u00EAn s\u00E1ch", "N\u0103m xu\u1EA5t b\u1EA3n", "Gi\u00E1 b\u00E1n", "Th\u00E0nh ti\u1EC1n"
+			}
+		) {
+			Class[] columnTypes = new Class[] {
+				Integer.class, String.class, Integer.class, Double.class, Double.class
+			};
+			public Class getColumnClass(int columnIndex) {
+				return columnTypes[columnIndex];
+			}
+		});
+		panel.add(table);
+	}
+
+}

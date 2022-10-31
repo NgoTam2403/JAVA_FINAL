@@ -1,0 +1,34 @@
+package QLCB;
+
+import java.math.BigDecimal;
+import java.sql.SQLException;
+
+import javax.swing.JOptionPane;
+
+public class Test_insertCB {
+
+	public static void doInsertCB() throws SQLException {
+		
+		
+		CanBo cb= new CanBo(12345678,"Le Thi S","nu","Thanh Hoa",20000000);
+		QLCB ql= new QLCB();
+		ql.getCon();
+		int rowaffect =ql.insertCB(cb);
+		if(rowaffect>0)
+		{
+			JOptionPane pn = new JOptionPane("thanh cong");
+			
+		}
+		else
+		{
+			JOptionPane pn = new JOptionPane("that bai");
+		}
+		
+	}
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+		
+
+	}
+
+}

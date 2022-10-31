@@ -1,0 +1,11 @@
+/**
+ * 
+ */
+/**
+ * @author Admin
+ *
+ */
+module ProjectQLCB {
+	requires java.sql;
+	requires java.desktop;
+}

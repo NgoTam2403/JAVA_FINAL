@@ -1,0 +1,10 @@
+/**
+ * 
+ */
+/**
+ * @author Admin
+ *
+ */
+module test {
+	requires java.desktop;
+}

@@ -1,0 +1,32 @@
+package GSach;
+
+import java.awt.GridBagLayout;
+import java.awt.GridLayout;
+
+import javax.swing.DefaultComboBoxModel;
+import javax.swing.DefaultListModel;
+import javax.swing.JComboBox;
+import javax.swing.JFrame;
+
+public class GUI_delSA extends JFrame{
+	DefaultComboBoxModel model = new DefaultComboBoxModel();
+	JComboBox cb= new JComboBox(model);
+	public GUI_delSA()
+	{
+		setSize(300,400);
+		setDefaultCloseOperation(EXIT_ON_CLOSE);
+		 model.addElement("2019");
+		 model.addElement("2020");
+		 model.addElement("2021");
+		 this.add(cb);
+		 setLayout(new GridLayout(2,1));
+	}
+
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+		JFrame F= new GUI_delSA();
+		F.setVisible(true);//hiện nó ra
+		
+	}
+
+}

@@ -1,0 +1,18 @@
+package GSach;
+
+import javax.swing.JFrame;
+
+public class GUI_delSA extends JFrame{
+	
+	public GUI_delSA()
+	{
+		setSize(300,400);
+	}
+
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+		JFrame F= new GUI_delSA();
+		F.setVisible(true);//hiện nó ra
+	}
+
+}

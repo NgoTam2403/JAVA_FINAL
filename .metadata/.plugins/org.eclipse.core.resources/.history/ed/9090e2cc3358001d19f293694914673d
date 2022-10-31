@@ -1,0 +1,160 @@
+package GKH;
+
+import java.awt.EventQueue;
+
+import javax.swing.JFrame;
+import javax.swing.JPanel;
+import javax.swing.border.EmptyBorder;
+import javax.swing.JScrollPane;
+import javax.swing.JTable;
+import javax.swing.table.DefaultTableModel;
+
+import com.mysql.cj.jdbc.result.ResultSetMetaData;
+
+import javax.swing.JComboBox;
+import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+
+import java.awt.Font;
+import java.awt.Frame;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+
+import javax.swing.DefaultComboBoxModel;
+import javax.swing.JButton;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+
+public class GUI extends JFrame {
+
+	private JPanel contentPane;
+	private static JTable table;
+	static XLKH xl = new XLKH();
+	static JComboBox cbDiaChi = new JComboBox();
+	static JComboBox cbGioiTinh = new JComboBox();
+
+	/**
+	 * Launch the application.
+	 * @throws SQLException 
+	 */
+	public static void show_data() throws SQLException {
+		
+		xl.getCon();
+		ResultSet rs=xl.getData();
+		DefaultTableModel model = (DefaultTableModel) table.getModel();
+		ResultSetMetaData meta = (ResultSetMetaData) rs.getMetaData();
+		int socot = meta.getColumnCount();
+		while(rs.next())
+		{
+			Object[] row= new Object[socot];
+			for(int i=0;i<socot;i++)
+			{
+				row[i]= rs.getObject(i+1);
+			}
+			model.addRow(row);
+		}
+		
+	}
+	public static void getDataCombobox() throws SQLException {
+		xl.getCon();
+		ResultSet rs=xl.getDiaChi();
+		 DefaultComboBoxModel model = new DefaultComboBoxModel();
+		    while(rs.next())
+		    {
+		    	model.addElement(rs.getObject(1));
+		    }
+		    cbDiaChi.setModel(model);
+		
+	}
+	public static void main(String[] args) throws SQLException {
+		Frame F = new GUI();
+		F.setVisible(true);
+		show_data();
+		getDataCombobox();
+	}
+
+	/**
+	 * Create the frame.
+	 */
+	public GUI() {
+		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setBounds(100, 100, 735, 400);
+		contentPane = new JPanel();
+		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
+
+		setContentPane(contentPane);
+		contentPane.setLayout(null);
+		
+		JScrollPane scrollPane = new JScrollPane();
+		scrollPane.setBounds(10, 159, 701, 194);
+		contentPane.add(scrollPane);
+		
+		table = new JTable();
+		table.setModel(new DefaultTableModel(
+			new Object[][] {
+			},
+			new String[] {
+				"S\u1ED1 t\u00E0i kho\u1EA3n", "H\u1ECD v\u00E0 t\u00EAn", "Gi\u1EDBi t\u00EDnh", "\u0110\u1ECBa ch\u1EC9", "S\u1ED1 d\u01B0"
+			}
+		) {
+			Class[] columnTypes = new Class[] {
+				Integer.class, String.class, String.class, String.class, Double.class
+			};
+			public Class getColumnClass(int columnIndex) {
+				return columnTypes[columnIndex];
+			}
+		});
+		scrollPane.setViewportView(table);
+		
+		
+		cbDiaChi.setBounds(123, 23, 163, 21);
+		contentPane.add(cbDiaChi);
+		cbGioiTinh.setModel(new DefaultComboBoxModel(new String[] {"nam", "nu"}));
+		
+		
+		cbGioiTinh.setBounds(123, 78, 163, 21);
+		contentPane.add(cbGioiTinh);
+		
+		JLabel lbDiaChi = new JLabel("Địa chỉ");
+		lbDiaChi.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		lbDiaChi.setBounds(29, 27, 84, 13);
+		contentPane.add(lbDiaChi);
+		
+		JLabel lbGioiTinh = new JLabel("Giới tính");
+		lbGioiTinh.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		lbGioiTinh.setBounds(29, 80, 84, 13);
+		contentPane.add(lbGioiTinh);
+		
+		JButton btnXoa = new JButton("Xóa");
+		btnXoa.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				try {
+					xl.getCon();
+				} catch (SQLException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+				String DiaChi = (String) cbDiaChi.getSelectedItem();
+				String GioiTinh = (String) cbGioiTinh.getSelectedItem();
+				
+				try {
+					int rowaffect = xl.delKH(DiaChi,GioiTinh);
+					if(rowaffect>0)
+					{
+						JOptionPane.showMessageDialog(null, "xoa Thanh cong");
+					}
+					else
+					{
+						JOptionPane.showMessageDialog(null, "xoa That bai");
+					}
+				} catch (SQLException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+			}
+		});
+		btnXoa.setBounds(502, 41, 107, 36);
+		contentPane.add(btnXoa);
+	}
+}

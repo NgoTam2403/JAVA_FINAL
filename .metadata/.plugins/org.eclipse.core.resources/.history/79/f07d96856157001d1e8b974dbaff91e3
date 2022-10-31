@@ -1,0 +1,78 @@
+package test;
+
+import java.awt.BorderLayout;
+import java.awt.EventQueue;
+
+import javax.swing.JFrame;
+import javax.swing.JPanel;
+import javax.swing.border.EmptyBorder;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.SQLException;
+
+public class test extends JFrame {
+
+	private JPanel contentPane;
+
+	/**
+	 * Launch the application.
+	 */
+	public static void main(String[] args) {
+		Connection conn = null;
+        try {
+            // db parameters
+            String url       = "jdbc:mysql://localhost:3306/music";
+            String user      = "root";
+            String password  = "24032002";
+
+            // create a connection to the database
+            conn = DriverManager.getConnection(url, user, password);
+            // more processing here
+            // ...
+        } catch(SQLException e) {
+            System.out.println(e.getMessage());
+        } finally {
+            try{
+                if(conn != null)
+                {
+                    System.out.println("connect");
+                    conn.close();
+                }
+
+            }catch(SQLException ex)
+            {
+                System.out.println(ex.getMessage());
+            }
+        }
+		EventQueue.invokeLater(new Runnable() {
+			public void run() {
+				try {
+					test frame = new test();
+					frame.setVisible(true);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+		});
+	}
+
+	/**
+	 * Create the frame.
+	 */
+	public test() {
+		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setBounds(100, 100, 517, 300);//s2 tham số đầu là vị trí
+		contentPane = new JPanel();
+		contentPane.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+			}
+		});
+		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
+
+		setContentPane(contentPane);
+	}
+
+}
